@@ -312,7 +312,7 @@ const classPrompts = {
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.filter(classroom => classroom.program === 'FE');
     return result;
 
     // Annotation:
@@ -327,17 +327,33 @@ const classPrompts = {
     //   beCapacity: 96
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.reduce((acc, classroom) => {
+      if(!acc.beCapacity) {
+        acc.beCapacity = 0;
+      }
+      if(!acc.feCapacity) {
+        acc.feCapacity = 0;
+      }
+      if(classroom.program === 'FE') {
+        acc.feCapacity += classroom.capacity;
+      } 
+      if(classroom.program === 'BE') {
+        acc.beCapacity += classroom.capacity;
+      }
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I created a reduce method to check for key of .beCapacity && .beCapacity.
+    // Next, I checked eached classrooms program, to determine if we would accumulate 
+    // the classroom capacity. I then returned the final object.
   },
 
   sortByCapacity() {
     // Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.sort((a, b) => a.capacity - b.capacity);
     return result;
 
     // Annotation:
@@ -367,11 +383,13 @@ const breweryPrompts = {
     // Return the total beer count of all beers for every brewery e.g.
     // 40
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.reduce((acc, brewery) => {
+      return acc += brewery.beers.length;
+    }, 0);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I used reduce to grab the length of each beers array within each brewery.
   },
 
   getBreweryBeerCount() {
