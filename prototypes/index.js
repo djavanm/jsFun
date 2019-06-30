@@ -430,11 +430,21 @@ const breweryPrompts = {
     // e.g.
     // { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.reduce((acc, brewery) => {
+      if(!acc.abv) {
+        acc.abv = 0;
+      }
+      brewery.beers.forEach(beer => {
+        beer.abv > acc.abv ? acc = beer : acc;
+      });
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I used reduce to create an empty object, I then assigned 
+    // a .abv value of 0, and used the for each method to check every 
+    // beer element within the beers array and find the highest abv content.
   }
 };
 
