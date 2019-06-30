@@ -248,14 +248,25 @@ const cakePrompts = {
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    const result = cakes.map(cake => cake.toppings).reduce((acc, toppings) => {
-      toppings.forEach(topping => acc.push(topping));
-      return acc;
-    }, []);
-    return [...new Set(result)];
+    // const result = cakes.map(cake => cake.toppings).reduce((acc, toppings) => {
+    //   toppings.forEach(topping => acc.push(topping));
+    //   return acc;
+    // }, []);
+    // return [...new Set(result)];
     // Annotation:
     // I mapped through each cake object, and created an array of their toppings arrays. I then reduced each toppings array into one large
     // array of toppings, and returned a new Set of toppings that were all unique. 
+
+    const result = cakes.map(cake => cake.toppings)
+      .reduce((acc, toppings) => {
+        toppings.forEach(topping => {
+          if(!acc.includes(topping)) {
+            acc.push(topping);
+          }
+        });
+        return acc;
+      }, []);
+    return result;
   },
 
   groceryList() {
