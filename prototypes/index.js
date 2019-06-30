@@ -24,21 +24,22 @@ const kittyPrompts = {
     
     // Return an array of just the names of kitties who are orange e.g.
     // ['Tiger', 'Snickers']
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.filter(kitty => kitty.color === 'orange').map(kitty => kitty.name);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I used filter to create a array of kitties that are orange, and then mapped that new array in order to return an array of their
+    // name values. 
   },
 
   sortByAge() {
     // Sort the kitties by their age
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.sort((a, b) => (b.age - a.age));
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I used the sort method to return the kittens sorted from oldest to  youngest. 
   },
 
   growUp() {
@@ -55,10 +56,16 @@ const kittyPrompts = {
     // },
     // ...etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties;
+    result.forEach(kitty => kitty.age += 2);
     return result;
+    // Annotation:
+    // I binded the result to the kitties array, then I used the forEach method to 
+    // got through every element in the result array, and assigned the age value to be 
+    // two years higher than itself. I then returned the new array.
   }
 };
+
 
 
 
@@ -87,15 +94,23 @@ const clubPrompts = {
     //   ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = clubs.reduce((acc, club) => {
+      club.members.forEach(member => {
+        if(!acc[member]) {
+          acc[member] = [];
+        } 
+        acc[member].push(club.club);
+      });
+      return acc;
+    }, {});
     return result;
-
     // Annotation:
-    // Write your annotation here as a comment
+    // I used reduce to create an array of clubs that each person was 
+    // in by checking to see if the member name wasn't already created, if not, then 
+    // we would create a new one as an empty array. From there, we would push
+    // each club.club string into each person's array. 
   }
 };
-
-
 
 
 
@@ -123,11 +138,16 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [];
+    mods.forEach((mod,index) =>{
+      sPI = mod.students / mod.instructors;
+      result.push({'mod': index+1, 'studentsPerInstructor': sPI});
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I declared result as an empty array, and then used forEach
+    // to push an object literal into the result array.
   }
 };
 
@@ -158,7 +178,10 @@ const cakePrompts = {
     //    ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [];
+    cakes.forEach(cake => {
+      result.push({'flavor': cake.cakeFlavor, 'inStock': cake.inStock});
+    });
     return result;
 
     // Annotation:
@@ -186,22 +209,24 @@ const cakePrompts = {
     // ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.filter(cake => cake.inStock > 0);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I used array.filter to return all the cake objects who's inStock value was greater than 0. 
   },
   
   totalInventory() {
     // Return the total amount of cakes in stock e.g.
     // 59
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((acc, cake) => {
+      return acc += cake.inStock;
+    },0);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I used the reduce method to count all of the cakes inStock values. 
   },
 
   allToppings() {

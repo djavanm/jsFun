@@ -29,7 +29,7 @@ const scope = {
 
     // Log D: personC
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = '{}';
     return result;
 
     // Annotation:
