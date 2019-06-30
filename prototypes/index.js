@@ -138,16 +138,23 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
-    const result = [];
-    mods.forEach((mod,index) =>{
-      sPI = mod.students / mod.instructors;
-      result.push({'mod': index+1, 'studentsPerInstructor': sPI});
-    });
+    // const result = [];
+    // mods.forEach((mod,index) =>{
+    //   const sPI = mod.students / mod.instructors;
+    //   result.push({'mod': index+1, 'studentsPerInstructor': sPI});
+    // });
+    const result  = mods.reduce((modRatios, mod) => {
+      modRatios.push({'mod': mod.mod, 
+        'studentsPerInstructor': mod.students / mod.instructors});
+      return modRatios;
+    }, []);
     return result;
 
     // Annotation:
     // I declared result as an empty array, and then used forEach
     // to push an object literal into the result array.
+
+    // Refactored: I 
   }
 };
 
@@ -178,14 +185,21 @@ const cakePrompts = {
     //    ..etc
     // ]
 
-    const result = [];
-    cakes.forEach(cake => {
-      result.push({'flavor': cake.cakeFlavor, 'inStock': cake.inStock});
-    });
+    // const result = [];
+    // cakes.forEach(cake => {
+    //   result.push({'flavor': cake.cakeFlavor, 'inStock': cake.inStock});
+    // });
+    const result = cakes.reduce((cakesStock, cake) => {
+      cakesStock.push({'flavor': cake.cakeFlavor,
+        'inStock': cake.inStock
+      });
+      return cakesStock;
+    }, []);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I used the reduce method to create an empty array that I then pushed an 
+    // object literal that contained  the flavor and inStock information. 
   },
 
   onlyInStock() {
@@ -222,7 +236,7 @@ const cakePrompts = {
 
     const result = cakes.reduce((acc, cake) => {
       return acc += cake.inStock;
-    },0);
+    }, 0);
     return result;
 
     // Annotation:
@@ -234,11 +248,14 @@ const cakePrompts = {
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
-
+    const result = cakes.map(cake => cake.toppings).reduce((acc, toppings) => {
+      toppings.forEach(topping => acc.push(topping));
+      return acc;
+    }, []);
+    return [...new Set(result)];
     // Annotation:
-    // Write your annotation here as a comment
+    // I mapped through each cake object, and created an array of their toppings arrays. I then reduced each toppings array into one large
+    // array of toppings, and returned a new Set of toppings that were all unique. 
   },
 
   groceryList() {
@@ -252,7 +269,15 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((acc, cake) => {
+      cake.toppings.forEach(topping => {
+        if(!acc[topping]) {
+          acc[topping] = 0;
+        }
+        acc[topping]++;
+      });
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
