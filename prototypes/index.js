@@ -412,11 +412,17 @@ const breweryPrompts = {
     // ...etc.
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.reduce((acc, brewery) => {
+      acc.push({'name': brewery.name, 
+        'beerCount': brewery.beers.length
+      });
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I used the array reduce method to create an array, and used .push() to 
+    // print an object literal for each brewery within the array.
   },
 
   findHighestAbvBeer() {
