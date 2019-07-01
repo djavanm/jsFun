@@ -435,7 +435,7 @@ const breweryPrompts = {
         acc.abv = 0;
       }
       brewery.beers.forEach(beer => {
-        beer.abv > acc.abv ? acc = beer : acc;
+        acc = beer.abv > acc.abv ? beer : acc;
       });
       return acc;
     }, {});
@@ -488,11 +488,21 @@ const turingPrompts = {
     //  { name: 'Robbie', studentCount: 18 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = instructors.reduce((acc, instructor) => {
+      cohorts.forEach(cohort => {
+        if(instructor.module === cohort.module) {
+          acc.push({'name': instructor.name, 'studentCount': cohort.studentCount});
+        }
+      });
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I reduced the isnstructors method, and called a forEach that examined each cohort
+    // within the cohorts array. I think compared the instructor's module
+    // to the cohorts module, and pushed an object literal containing 
+    // the instructors name and their  studentCount. 
   },
 
   studentsPerInstructor() {
