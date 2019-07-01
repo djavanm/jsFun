@@ -574,11 +574,25 @@ const turingPrompts = {
     //   recursion: [ 'Pam', 'Leta' ]
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cohorts.reduce((acc, cohort) => {
+      cohort.curriculum.forEach(topic => {
+        if(!acc[topic]) {
+          acc[topic] = [];
+        }
+        instructors.forEach(instructor => {
+          if(instructor.teaches.includes(topic) && !acc[topic].includes(instructor.name)) {
+            acc[topic].push(instructor.name);
+          }
+        });
+      });
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I firt created a topic for the current subject, then iterated through the instructors array and 
+    // set up a boolean to check whether the topic was included in the current instructor's list of skills. 
+    
   }
 };
 
