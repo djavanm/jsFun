@@ -623,11 +623,27 @@ const bossPrompts = {
     //   { bossName: 'Scar', sidekickLoyalty: 16 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = Object.values(bosses).reduce((accArr, boss) => {
+      let currentBoss = boss.name;
+      accArr.push(sidekicks.reduce((acc, sidekick) => {
+        if(!acc['bossName']) {
+          acc['bossName'] = currentBoss;
+          acc['sidekickLoyalty'] = 0;
+        } 
+        if(currentBoss === sidekick.boss) {
+          acc['sidekickLoyalty'] += sidekick.loyaltyToBoss;
+        }
+        return acc;
+      }, {}));
+      return accArr;
+    }, []);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We first had to create an array out of the bosses dataset. I accomplished this by passes the dataset through an Object.values
+    // prototype. From there, we used reduce to create our empty array that would be passed back. Next, we declared the 
+    // currentBoss variable to help us distinguish the values needed when reducing the nested sidekicks array. I then used the array.push
+    // method to push in each object that met the proper conditions when iterating through the sidekicks array. 
   }
 };
 
