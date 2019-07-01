@@ -541,11 +541,27 @@ const turingPrompts = {
     //     Will: [1, 2, 3, 4]
     //   }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = instructors.reduce((acc, instructor, index) => {
+      if(!acc[instructor.name]) {
+        acc[instructor.name] = [];
+      }
+      instructor.teaches.forEach(skill => {
+        cohorts.forEach(cohort => {
+          if(cohort.curriculum.includes(skill) && !acc[instructor.name].includes(cohort.module)) {
+            acc[instructor.name].push(cohort.module);
+            acc[instructor.name].sort();
+          }
+        });
+      });
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I used reduce on the instructors array to create an empty object. I check iterated through 
+    // each teacher to use their name as a key, with an empty array as their value. I then used the foreach method
+    // to take each of their skills, and check every cohort to see if their skill was in each cohort's curriculum array.
+    // I then pushed the  cohort's module so long as it wasn't already there, and sorted that resulting array. 
   },
 
   curriculumPerTeacher() {
