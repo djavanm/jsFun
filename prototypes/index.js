@@ -681,11 +681,20 @@ const astronomyPrompts = {
     //     color: 'red' }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = stars.reduce((acc, star) => {
+      if(Object.values(constellations).reduce((acc, constellation) => {
+        acc = acc.concat(constellation.stars);
+        return acc;
+      }, []).includes(star.name)) {
+        acc.push(star);
+      }
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I created an array of constellations from the constellations object, then used .includes method
+    // to see if each star was contained in that array. 
   },
 
   starsByColor() {
