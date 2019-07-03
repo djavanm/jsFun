@@ -708,11 +708,21 @@ const astronomyPrompts = {
     //   red: [{obj}]
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = stars.reduce((acc, star) => {
+      if(!acc[star.color]) {
+        acc[star.color] = [];
+      }
+      if(!acc[star.color].includes(star)) {
+        acc[star.color].push(star);
+      }
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I used the reduce method to create a single object,
+    // then created a key for every star color, and pushed 
+    // the star object into any array that matched that criteria.
   },
 
   constellationsStarsExistIn() {
