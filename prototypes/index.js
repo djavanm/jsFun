@@ -796,11 +796,29 @@ const ultimaPrompts = {
     // Return the sum damage and total range for each character as an object. 
     // ex: [ { Avatar: { damage: 27, range: 24 }, { Iolo: {...}, ...}
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = characters.reduce((acc, char) => {
+      acc.push(char.weapons.reduce((acc, charWeapon) => {
+        if(!acc[char.name]) {
+          acc[char.name] = {
+            'damage': 0,
+            'range': 0
+          };
+        }
+        let currentWeapon = Object.keys(weapons).findIndex(weapon => weapon === charWeapon);
+        let currentDamage = Object.values(weapons)[currentWeapon].damage;
+        let currentRange = Object.values(weapons)[currentWeapon].range;
+        acc[char.name].damage += currentDamage;
+        acc[char.name].range += currentRange;
+        return acc;
+      }, {}));
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I chose to reudce the characters array, and then went in their weapons array. 
+    // I reduded that array and accumlated the value of damage and range for each weapon 
+    // on that character's weapon array. 
   },
 };
 
