@@ -851,11 +851,24 @@ const dinosaurPrompts = {
     //   'Jurassic World: Fallen Kingdom': 18
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = movies.reduce((acc, movie) => {
+      if(!acc[movie.title]) {
+        acc[movie.title] = 0;
+      }
+      movie.dinos.forEach(dino => {
+        let currentIndex = Object.keys(dinosaurs).findIndex(dinosaur => dinosaur === dino);
+        let isDinoAwesome = Object.values(dinosaurs)[currentIndex].isAwesome;
+        isDinoAwesome ? acc[movie.title]++ : acc;
+        return acc;
+      });
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I reduced the movies array and set and checked each dinosaurs 
+    // isAwesome value from the dinosaurs object, and incremented once for 
+    // each awesome dinosaur.
   },
 
   averageAgePerMovie() {
@@ -884,11 +897,29 @@ const dinosaurPrompts = {
       }
     */
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = movies.reduce((acc, movie) => {
+      let moviesDirected = movies.reduce((acc, currMovie) => {
+        if(!acc[currMovie.title] && currMovie.director === movie.director) {
+          acc[currMovie.title] = parseInt(currMovie.cast.reduce((acc, castMember) => {
+            let index = Object.keys(humans).findIndex(human => human === castMember);
+            let age =  currMovie.yearReleased - Object.values(humans)[index].yearBorn;
+            return acc += age;
+          }, 0) / currMovie.cast.length);
+        }
+        return acc;
+      }, {});
+      if(!acc[movie.director]) {
+        acc[movie.director] = moviesDirected;
+      }
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // This one was hard. 
+    // I reduced the movied arreay, then I stored the moviesDirected object 
+    // using another reduce which returned an object containing the key/value
+    // pairs of the current movie, and the average age of the cast. 
   },
 
   uncastActors() {
