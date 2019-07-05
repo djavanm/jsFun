@@ -947,8 +947,26 @@ const dinosaurPrompts = {
         imdbStarMeterRating: 0
       }]
     */
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = Object.keys(humans).reduce((acc, human)  => {
+      let checkCasting = movies.reduce((acc, movie) => {
+        acc.push(movie.cast.includes(human));
+        return acc;
+      }, []);
+      if(checkCasting.every(casting => casting === false)) {
+        let index = Object.keys(humans).findIndex(name => name === human);
+        let imdb = Object.values(humans)[index].imdbStarMeterRating;
+        let nationality = Object.values(humans)[index].nationality.trim();
+        acc.push({'name': human, 'nationality': nationality, 'imdbStarMeterRating': imdb });
+      }
+      acc.sort((a, b) => {
+        if(a.nationality < b.nationality) {
+          return -1;
+        }
+        if(a.nationality > b.nationality) {
+          return 1;
+        }});
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
