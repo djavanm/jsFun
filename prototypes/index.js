@@ -970,7 +970,9 @@ const dinosaurPrompts = {
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I used a reduce to ocheck to see if the current human was casted in a movie. 
+    // From there, I grabbed the necessary information to push the actor into a new array. 
+    // Lastly, I sorted the array based on the actor's nationality. 
   },
 
   actorsAgesInMovies() {
@@ -989,11 +991,33 @@ const dinosaurPrompts = {
       { name: 'Bryce Dallas Howard', ages: [ 34, 37 ] } ]
     */
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = Object.keys(humans).reduce((acc, human) => {
+      let index = Object.keys(humans).findIndex(name => name === human);
+      let yearBorn = Object.values(humans)[index].yearBorn;
+      if(movies.reduce((check, movie) => {
+        if(movie.cast.includes(human)) {
+          check = true;
+        }
+        return check;
+      }, false)) {
+        let ageValues = movies.reduce((agesInMovie, movie) => {
+          if(movie.cast.includes(human)) {
+            let age = movie.yearReleased - yearBorn;
+            agesInMovie.push(age);
+          }
+          return agesInMovie;
+        }, []);
+        acc.push({'name': human, 'ages': ageValues});
+      }
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // I used a reduce method on the human object to check each name. From there, 
+    // I used a reduce to see if that human was casted in each movie.
+    // If the human was casted, I then created an array of age values for the movies they were in.
+    // Finally, I pushed an object literal containing the actors name and age values, into our final accumulator array. 
   }
 };
 
