@@ -154,7 +154,7 @@ const modPrompts = {
     // I declared result as an empty array, and then used forEach
     // to push an object literal into the result array.
 
-    // Refactored: I 
+    // Refactored
   }
 };
 

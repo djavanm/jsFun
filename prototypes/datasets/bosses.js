@@ -45,7 +45,7 @@ const sidekicks = [
   {
     name: 'Banzai',
     associates: ['Shenzi', 'Ed'],
-    strengths: ['strategy', 'suspicion'],
+    strengths: ['strategy', 'suspicio\n'],
     boss: 'Scar',
     loyaltyToBoss: 5
   },
