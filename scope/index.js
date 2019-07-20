@@ -29,7 +29,12 @@ const scope = {
 
     // Log D: personC
 
-    const result = '{}';
+    const result = [
+      {'A': 'Ben'}, 
+      {'B': 'CardiB'},
+      {'C': 'CardiB'}, 
+      {'D': 'Paul'}
+    ];
     return result;
 
     // Annotation:
@@ -63,7 +68,12 @@ const scope = {
 
     // Log D: number
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      { 'A': 75},
+      { 'B': 64},
+      { 'C': 64},
+      { 'D': 30}
+    ];
     return result;
 
     // Annotation:
@@ -97,7 +107,12 @@ const scope = {
 
     // Log D: greeting
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      { 'A': 'Yo'},
+      { 'B': 'Hey'},
+      { 'C': 'Hey'},
+      { 'D': 'Hello'}
+    ];
     return result;
 
     // Annotation:
@@ -131,7 +146,12 @@ const scope = {
 
     // Log D: greeting
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      { 'A': 'hi'},
+      { 'B': 'welcome'},
+      { 'C': 'welcome'},
+      { 'D': 'howdy'}
+    ];
     return result;
 
     // Annotation:
